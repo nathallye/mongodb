@@ -180,7 +180,7 @@ show collections
 
 ## Consultas
 
-- - Primeiramente, vamos verificar a lista de banco de dados disponíveis usando o comando:
+- Primeiramente, vamos verificar a lista de banco de dados disponíveis usando o comando:
 
 ```
 > show dbs
@@ -202,38 +202,38 @@ show collections
 - Feito isso, para localizar *TODOS* os dados/documents de determinada collection de um BD, vamos usar o comando seguinte:
 
 ```
-db.testCollection.find()
-   [name_collection]
+> db.testCollection.find()
+    [name_collection]
 ```
 
 - E para que a saída dos dados/documents de determinada collection de um BD saia formatada vamos chamar o método `pretty`:
 
 ```
-db.testCollection.find().pretty()
+> db.testCollection.find().pretty()
 ```
 
 - Para localizar o *PRIMEIRO* registro/document de determinada collection de um BD, vamos usar o comando seguinte:
 
 ```
-db.testCollection.findOne()
+> db.testCollection.findOne()
 ```
 
 - E para localizar o *PRIMEIRO* registro/document de determinada collection de um BD passando um filtro, vamos usar o comando seguinte:
 
 ```
-db.testCollection.findOne({month: 2})
+> db.testCollection.findOne({month: 2})
 ```
 
 - Para localizar *MAIS DE UM* registro/document de determinada collection de um BD passando um ou/or de critérios:
 
 ```
-db.testCollection.find({$or: [{month: 2}, month: 3}]}).pretty()
+> db.testCollection.find({$or: [{month: 2}, {month: 3}]}).pretty()
 ```
 
 - Para pular um elemento podemos usar o método `skip`, como no exemplo a seguir:
 
 ```
-db.testCollection.find({year: 2022}).skip(1)
+> db.testCollection.find({year: 2022}).skip(1).pretty()
 ```
 
 **Obs.:** Nesse caso o `skip(1)` irá pular o primeiro elemento.
@@ -241,5 +241,55 @@ db.testCollection.find({year: 2022}).skip(1)
 - Para limitar a resposta em determinado número de elementos/documents podemos usar o método `limit`, como no exemplo a seguir:
 
 ```
-db.testCollection.find({year: 2022}).limit(2)
+> db.testCollection.find({year: 2022}).limit(2).pretty()
+```
+
+## Atualização
+
+- Primeiramente, vamos verificar a lista de banco de dados disponíveis usando o comando:
+
+```
+> show dbs
+```
+
+- Em seguida vamos "usar" o banco de dados que queremos atualizar dados/documents:
+
+```
+> use testdb
+      [name_database]
+```
+
+- E podemos verificar a lista de coleções disponíveis no banco de dados em questão usando o comando:
+
+```
+> show collections
+```
+
+- Feito isso, para atualizar dados/documents de determinada collection de um BD, vamos usar critérios para selecionar um determinado elemento/document ou conjunto/documents de elemenentos da collection para que seja aplicada a atualização. 
+Para selecionar um único elemento podemos usar o próprio `id`, mas nesse caso iremos usar o `and`(ele vai atualizar o primeiro elemento que encontrar com o filtro aplicado no end/e).
+E para para informarmos quais atributos dos documents encontrados através do filtro aplicado no end serão atualizados vamos usar o `set`, como no exemplo abaixo:
+
+``` 
+> db.testCollection.update(
+... {$and: [{month: 1}, {year: 2022}]},
+... {$set: {credits: [{name: "Salary", value: 5000}]}}
+... )
+```
+
+**Obs.:** Mesmo o atributo *credits* não exista nos documents encontrados ele será criado.
+
+## Contador
+
+- Para saber quantos documents existe em determinada collection, vamos usar o comando seguinte:
+
+```
+> db.testCollection.count()
+```
+
+## Removendo elemento/document
+
+- Para remover um document de uma determinada collection podemos usar o método `remove` passando um critério, como no exemplo a seguir:
+
+```
+> db.testCollection.remove({"name" : "Agosto/2022"})
 ```
