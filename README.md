@@ -165,7 +165,7 @@ show collections
 - Para inserir dados/document em uma coleção/collection desse banco de dados vamos usar o método `insert` com a notação seguinte:
 
 ```
-> db.testCollection.insert({"name": "Agosto/2022", "month": 1, "year": 2022})
+> db.testCollection.insert({"name": "Janeiro/2022", "month": 1, "year": 2022})
    [name_collection]      [object json]
 ```
 
@@ -174,7 +174,72 @@ show collections
 - Podemos inserir dados utilizando o método `save`, esse método pode tanto inserir atualizar dados(contado que seja passada a chave correta para que o elemento seja localizado):
 
 ```
-> db.testCollection.insert({"name": "Agosto/2022", "month": 1, "year": 2022})
+> db.testCollection.insert({"name": "Fevereiro/2022", "month": 2, "year": 2022})
    [name_collection]      [object json]
 ```
 
+## Consultas
+
+- - Primeiramente, vamos verificar a lista de banco de dados disponíveis usando o comando:
+
+```
+> show dbs
+```
+
+- Em seguida vamos "usar" o banco de dados que queremos consultar dados/documents:
+
+```
+> use testdb
+      [name_database]
+```
+
+- E podemos verificar a lista de coleções disponíveis no banco de dados em questão usando o comando:
+
+```
+> show collections
+```
+
+- Feito isso, para localizar *TODOS* os dados/documents de determinada collection de um BD, vamos usar o comando seguinte:
+
+```
+db.testCollection.find()
+   [name_collection]
+```
+
+- E para que a saída dos dados/documents de determinada collection de um BD saia formatada vamos chamar o método `pretty`:
+
+```
+db.testCollection.find().pretty()
+```
+
+- Para localizar o *PRIMEIRO* registro/document de determinada collection de um BD, vamos usar o comando seguinte:
+
+```
+db.testCollection.findOne()
+```
+
+- E para localizar o *PRIMEIRO* registro/document de determinada collection de um BD passando um filtro, vamos usar o comando seguinte:
+
+```
+db.testCollection.findOne({month: 2})
+```
+
+- Para localizar *MAIS DE UM* registro/document de determinada collection de um BD passando um ou/or de critérios:
+
+```
+db.testCollection.find({$or: [{month: 2}, month: 3}]}).pretty()
+```
+
+- Para pular um elemento podemos usar o método `skip`, como no exemplo a seguir:
+
+```
+db.testCollection.find({year: 2022}).skip(1)
+```
+
+**Obs.:** Nesse caso o `skip(1)` irá pular o primeiro elemento.
+
+- Para limitar a resposta em determinado número de elementos/documents podemos usar o método `limit`, como no exemplo a seguir:
+
+```
+db.testCollection.find({year: 2022}).limit(2)
+```
