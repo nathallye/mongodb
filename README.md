@@ -280,6 +280,25 @@ E para para informarmos quais atributos dos documents encontrados através do fi
 
 ## Contador
 
+- Primeiramente, vamos verificar a lista de banco de dados disponíveis usando o comando:
+
+```
+> show dbs
+```
+
+- Em seguida vamos "usar" o banco de dados que queremos contar dados/documents:
+
+```
+> use testdb
+      [name_database]
+```
+
+- E podemos verificar a lista de coleções disponíveis no banco de dados em questão usando o comando:
+
+```
+> show collections
+```
+
 - Para saber quantos documents existe em determinada collection, vamos usar o comando seguinte:
 
 ```
@@ -288,7 +307,26 @@ E para para informarmos quais atributos dos documents encontrados através do fi
 
 ## Removendo elemento/document
 
-- Para remover um document de uma determinada collection podemos usar o método `remove` passando um critério, como no exemplo a seguir:
+- Primeiramente, vamos verificar a lista de banco de dados disponíveis usando o comando:
+
+```
+> show dbs
+```
+
+- Em seguida vamos "usar" o banco de dados que queremos remover dados/documents:
+
+```
+> use testdb
+      [name_database]
+```
+
+- E podemos verificar a lista de coleções disponíveis no banco de dados em questão usando o comando:
+
+```
+> show collections
+```
+
+- Para remover um document de uma determinada collection podemos usar o método `remove` passando um critério para encontrar o elemento(mais comum e seguro passar como critério o `id`), como no exemplo a seguir:
 
 ```
 > db.testCollection.remove({"name" : "Agosto/2022"})
